@@ -1,0 +1,21 @@
+{
+  "name": "exchange-gift-api",
+  "version": "1.0.0",
+  "description": "REST API for matching gift exchange partners from different families",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node src/index.js",
+    "test": "node test.js"
+  },
+  "keywords": [
+    "gift-exchange",
+    "secret-santa",
+    "partner-matching"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
