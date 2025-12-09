@@ -1,0 +1,151 @@
+.match-results {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #f0fdf4;
+  border: 2px solid #22c55e;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.15);
+}
+
+.results-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.results-header h2 {
+  color: #15803d;
+  margin: 0 0 0.5rem 0;
+  font-size: 1.75rem;
+}
+
+.results-header p {
+  color: #4b5563;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.results-table-container {
+  margin-bottom: 1.5rem;
+  overflow-x: auto;
+}
+
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.results-table thead {
+  background: #dcfce7;
+  border-bottom: 2px solid #22c55e;
+}
+
+.results-table th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: #15803d;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.results-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  color: #374151;
+}
+
+.results-table tbody tr.even {
+  background: #f9fafb;
+}
+
+.results-table tbody tr.odd {
+  background: white;
+}
+
+.results-table tbody tr:hover {
+  background: #f0fdf4;
+}
+
+.results-table .index {
+  font-weight: 600;
+  color: #6b7280;
+  width: 3rem;
+  text-align: center;
+}
+
+.results-table .giver {
+  font-weight: 500;
+  color: #1f2937;
+}
+
+.results-table .arrow {
+  text-align: center;
+  color: #22c55e;
+  font-weight: bold;
+  width: 2rem;
+}
+
+.results-table .recipient {
+  font-weight: 500;
+  color: #1f2937;
+}
+
+.results-stats {
+  display: flex;
+  gap: 2rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  border: 1px solid #dcfce7;
+}
+
+.results-stats span {
+  font-weight: 500;
+  color: #374151;
+  flex: 1;
+}
+
+.results-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.btn-download,
+.btn-new {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.95rem;
+}
+
+.btn-download {
+  background: #3b82f6;
+  color: white;
+}
+
+.btn-download:hover {
+  background: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+}
+
+.btn-new {
+  background: #22c55e;
+  color: white;
+}
+
+.btn-new:hover {
+  background: #16a34a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(34, 197, 94, 0.3);
+}
