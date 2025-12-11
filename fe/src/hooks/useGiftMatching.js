@@ -6,17 +6,19 @@ export const useGiftMatching = () => {
   const [error, setError] = useState(null);
   const [results, setResults] = useState(null);
   const [attempts, setAttempts] = useState(0);
+  const [families, setFamilies] = useState(null);
 
-  const performMatching = useCallback(async (families, sendEmails = false) => {
+  const performMatching = useCallback(async (familiesData, sendEmails = false) => {
     setLoading(true);
     setError(null);
     setAttempts(0);
 
     try {
-      const data = await matchFamilies(families, sendEmails);
+      const data = await matchFamilies(familiesData, sendEmails);
       
       if (data.success) {
         setResults(data.matches);
+        setFamilies(familiesData);
         setAttempts(data.attempt || 1);
       } else {
         setError(data.error || 'Unknown error occurred');
@@ -31,6 +33,7 @@ export const useGiftMatching = () => {
 
   const clearResults = useCallback(() => {
     setResults(null);
+    setFamilies(null);
     setError(null);
     setAttempts(0);
   }, []);
@@ -40,6 +43,7 @@ export const useGiftMatching = () => {
     error,
     results,
     attempts,
+    families,
     performMatching,
     clearResults,
   };

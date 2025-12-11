@@ -1,66 +1,61 @@
 import './MatchResults.css';
 
-export const MatchResults = ({ results, attempts, onReset }) => {
+export const MatchResults = ({ results, families, attempts, onReset }) => {
   if (!results || results.length === 0) {
     return null;
   }
 
-  const downloadCSV = () => {
-    const headers = ['Giver', 'Recipient'];
-    const csv = [
-      headers.join(','),
-      ...results.map(m => `"${m.name}","${m.baby}"`),
-    ].join('\n');
-
-    const blob = new Blob([csv], { type: 'text/csv' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `gift-exchange-${new Date().toISOString().split('T')[0]}.csv`;
-    a.click();
-    window.URL.revokeObjectURL(url);
-  };
+  const totalMembers = families?.reduce((sum, family) => {
+    return sum + family.members.filter(m => m.trim()).length;
+  }, 0) || 0;
 
   return (
     <div className="match-results">
-      <div className="results-header">
-        <h2>✓ Matches Created!</h2>
-        <p>Attempt: {attempts}/3</p>
+      <div className="confirmation-container">
+        <div className="confirmation-icon">✓</div>
+        <h2>Matches Created Successfully!</h2>
+        <p className="confirmation-message">
+          All gift assignments have been completed and confirmation emails have been sent.
+        </p>
       </div>
 
-      <div className="results-table-container">
-        <table className="results-table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Giver</th>
-              <th>→</th>
-              <th>Recipient</th>
-            </tr>
-          </thead>
-          <tbody>
-            {results.map((match, idx) => (
-              <tr key={idx} className={idx % 2 === 0 ? 'even' : 'odd'}>
-                <td className="index">{idx + 1}</td>
-                <td className="giver">{match.name}</td>
-                <td className="arrow">→</td>
-                <td className="recipient">{match.baby}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div className="details-section">
+        <div className="details-header">
+          <h3>Email Notifications Sent</h3>
+        </div>
+        <div className="families-list">
+          {families?.map((family, idx) => {
+            const memberCount = family.members.filter(m => m.trim()).length;
+            return (
+              <div key={idx} className="family-notification">
+                <div className="family-name">{family.name}</div>
+                <div className="family-email">📧 {family.email}</div>
+                <div className="member-count">
+                  {memberCount} member{memberCount !== 1 ? 's' : ''} matched
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
 
-      <div className="results-stats">
-        <span>Total Matches: {results.length}</span>
-        <span>Success Rate: 100%</span>
+      <div className="summary-stats">
+        <div className="stat">
+          <span className="stat-label">Total Families:</span>
+          <span className="stat-value">{families?.length || 0}</span>
+        </div>
+        <div className="stat">
+          <span className="stat-label">Total Members Matched:</span>
+          <span className="stat-value">{totalMembers}</span>
+        </div>
+        <div className="stat">
+          <span className="stat-label">Attempts Required:</span>
+          <span className="stat-value">{attempts}</span>
+        </div>
       </div>
 
-      <div className="results-actions">
-        <button onClick={downloadCSV} className="btn-download">
-          📥 Download CSV
-        </button>
-        <button onClick={onReset} className="btn-new">
+      <div className="confirmation-actions">
+        <button onClick={onReset} className="btn-new-matches">
           Create New Matches
         </button>
       </div>

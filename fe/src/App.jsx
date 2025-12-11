@@ -7,7 +7,7 @@ import { checkHealth } from './services/api'
 import './App.css'
 
 function App() {
-  const { loading, error, results, attempts, performMatching, clearResults } = useGiftMatching()
+  const { loading, error, results, attempts, families, performMatching, clearResults } = useGiftMatching()
 
   useEffect(() => {
     checkHealth()
@@ -54,7 +54,7 @@ function App() {
         {!results ? (
           <FamilyForm onSubmit={handleFormSubmit} loading={loading} />
         ) : (
-          <MatchResults results={results} attempts={attempts} onReset={handleReset} />
+          <MatchResults results={results} families={families} attempts={attempts} onReset={handleReset} />
         )}
       </main>
 

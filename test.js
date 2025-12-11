@@ -3,7 +3,7 @@ const FamilyFactory = require('./src/familyFactory');
 const IndexAssigner = require('./src/indexAssigner');
 const BabyAssigner = require('./src/babyAssigner');
 const FamilyRepository = require('./src/familyRepository');
-const FamilyBuilder = require('./src/familyBuilder');
+const MatchingOrchestrator = require('./src/matchingOrchestrator');
 
 // Test utilities
 let testsRun = 0;
@@ -279,10 +279,10 @@ test('should identify different family members', () => {
   assert(isSame === false, 'Alice and Charlie should be from different families');
 });
 
-console.log('\n=== FamilyBuilder Integration Tests ===\n');
+console.log('\n=== MatchingOrchestrator Integration Tests ===\n');
 
 testAsync('should build families with complete pipeline', async () => {
-  const families = await FamilyBuilder.buildFromJson(validFamilies);
+  const families = await MatchingOrchestrator.orchestrate(validFamilies);
   assert(families.length === 3, 'Should create 3 families');
 });
 
@@ -293,7 +293,7 @@ testAsync('should assign indices and babies in pipeline', async () => {
     { name: 'Family Y', members: ['Y1', 'Y2', 'Y3', 'Y4'] },
     { name: 'Family Z', members: ['Z1', 'Z2', 'Z3', 'Z4'] }
   ];
-  const families = await FamilyBuilder.buildFromJson(testFamilies);
+  const families = await MatchingOrchestrator.orchestrate(testFamilies);
   
   for (const family of families) {
     for (const member of family.getMembers()) {
@@ -304,7 +304,7 @@ testAsync('should assign indices and babies in pipeline', async () => {
 });
 
 testAsync('should handle equal distribution families', async () => {
-  const families = await FamilyBuilder.buildFromJson(validFamilies);
+  const families = await MatchingOrchestrator.orchestrate(validFamilies);
   assert(families.length === 3, 'Should create 3 families');
   assert(families[0].getMembers()[0].getBaby() !== null, 'Members should have babies assigned');
 });

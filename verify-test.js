@@ -1,10 +1,10 @@
-const FamilyBuilder = require('./src/familyBuilder');
+const MatchingOrchestrator = require('./src/matchingOrchestrator');
 const FamilyRepository = require('./src/familyRepository');
 
 console.log('=== Verifying Gift Assignments ===\n');
 
 try {
-  const families = FamilyBuilder.buildFromJson([
+  const families = MatchingOrchestrator.orchestrate([
     { name: 'Pau', members: ['Paula', 'Xavier', 'Belle', 'Ilysse'] },
     { name: 'JC', members: ['JC', 'Kriza', 'King', 'Zion'] },
     { name: 'Che', members: ['Cheche', 'Raunchie', 'Aan', 'Lexie', 'Wanna'] },

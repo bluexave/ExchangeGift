@@ -1,6 +1,6 @@
 const http = require('http');
 const express = require('express');
-const FamilyBuilder = require('./src/familyBuilder');
+const MatchingOrchestrator = require('./src/matchingOrchestrator');
 
 async function testAPI() {
   // Start the server
@@ -10,7 +10,7 @@ async function testAPI() {
   app.post('/api/match', async (req, res) => {
     try {
       const { families, sendEmails } = req.body;
-      const builtFamilies = await FamilyBuilder.buildFromJson(families, sendEmails);
+      const builtFamilies = await MatchingOrchestrator.orchestrate(families, sendEmails);
 
       const matches = [];
       for (const family of builtFamilies) {

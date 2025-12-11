@@ -233,6 +233,14 @@ export const FamilyForm = ({ onSubmit, loading }) => {
                           placeholder={`Member ${memberIdx + 1}`}
                           value={member}
                           onChange={(e) => updateMember(familyIdx, memberIdx, e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.shiftKey && e.key === 'Enter') {
+                              e.preventDefault();
+                              if (!family.members.some(m => !m.trim())) {
+                                addMember(familyIdx);
+                              }
+                            }
+                          }}
                           className="member-input"
                           onClick={(e) => e.stopPropagation()}
                         />

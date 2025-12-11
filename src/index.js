@@ -1,9 +1,11 @@
 const express = require('express');
-const FamilyBuilder = require('./familyBuilder');
+const cors = require('cors');
+const MatchingOrchestrator = require('./matchingOrchestrator');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
+app.use(cors());
 app.use(express.json());
 
 // Routes
@@ -12,7 +14,7 @@ app.post('/api/match', async (req, res) => {
     const { families, sendEmails = false } = req.body;
 
     // Validate and build families from JSON
-    const builtFamilies = await FamilyBuilder.buildFromJson(families, sendEmails);
+    const builtFamilies = await MatchingOrchestrator.orchestrate(families, sendEmails);
 
     // Flatten families to array of members with name and baby
     const matches = [];
@@ -42,5 +44,5 @@ app.get('/health', (req, res) => {
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`Gift Exchange API running on http://localhost:${PORT}`);
+  console.log('Gift Exchange API running on http://localhost:' + PORT);
 });

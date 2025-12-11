@@ -1,10 +1,10 @@
-const FamilyBuilder = require('./src/familyBuilder');
+const MatchingOrchestrator = require('./src/matchingOrchestrator');
 
 console.log('=== BabyAssigner Debug Test ===\n');
 
 (async () => {
   try {
-    const families = await FamilyBuilder.buildFromJson([
+    const families = await MatchingOrchestrator.orchestrate([
       { name: 'Pau', members: ['Paula', 'Xavier', 'Belle', 'Ilysse'], email: 'pau@example.com' },
       { name: 'JC', members: ['JC', 'Kriza', 'King', 'Zion'], email: 'jc@example.com' },
       { name: 'Che', members: ['Cheche', 'Raunchie', 'Aan', 'Lexie', 'Wanna'], email: 'che@example.com' },

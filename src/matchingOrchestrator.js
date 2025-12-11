@@ -4,8 +4,8 @@ const IndexAssigner = require('./indexAssigner');
 const BabyAssigner = require('./babyAssigner');
 const EmailSender = require('./emailSender');
 
-class FamilyBuilder {
-  static async buildFromJson(familiesJson, sendEmails = false) {
+class MatchingOrchestrator {
+  static async orchestrate(familiesJson, sendEmails = false) {
     // Stage 1: Validate JSON
     JsonValidator.validate(familiesJson);
 
@@ -27,4 +27,4 @@ class FamilyBuilder {
   }
 }
 
-module.exports = FamilyBuilder;
+module.exports = MatchingOrchestrator;

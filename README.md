@@ -17,7 +17,7 @@ A Node.js REST API for matching gift exchange partners, ensuring participants ar
 ```
 src/
   ├── index.js              # Express server and API routes
-  ├── familyBuilder.js      # Orchestrator (5-stage pipeline)
+  ├── matchingOrchestrator.js # Orchestrator (5-stage pipeline)
   ├── jsonValidator.js      # Input validation
   ├── familyFactory.js      # Create Family/Member objects
   ├── indexAssigner.js      # Assign sequential indices
