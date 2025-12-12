@@ -59,7 +59,7 @@ export const FamilyForm = ({ onSubmit, loading }) => {
 
   const addFamily = () => {
     const newIdx = families.length;
-    setFamilies([...families, { name: '', members: [], email: '' }]);
+    setFamilies([...families, { name: '', members: [], email: '', isPickAtLeastOnePerGroup: false }]);
     setEditingFamily(newIdx);
   };
 
@@ -97,6 +97,12 @@ export const FamilyForm = ({ onSubmit, loading }) => {
   const updateMember = (familyIdx, memberIdx, value) => {
     const updated = [...families];
     updated[familyIdx].members[memberIdx] = value;
+    setFamilies(updated);
+  };
+
+  const togglePickAtLeastOnePerGroup = (idx) => {
+    const updated = [...families];
+    updated[idx].isPickAtLeastOnePerGroup = !updated[idx].isPickAtLeastOnePerGroup;
     setFamilies(updated);
   };
 
@@ -192,6 +198,17 @@ export const FamilyForm = ({ onSubmit, loading }) => {
                       onChange={(e) => updateFamilyEmail(familyIdx, e.target.value)}
                       className="family-email-input"
                     />
+                  </div>
+                  <div className="family-options">
+                    <label className="checkbox-label">
+                      <input
+                        type="checkbox"
+                        checked={family.isPickAtLeastOnePerGroup || false}
+                        onChange={() => togglePickAtLeastOnePerGroup(familyIdx)}
+                        className="checkbox-input"
+                      />
+                      <span className="checkbox-text">Pick 1 per Group</span>
+                    </label>
                   </div>
                   {isEditing && (
                     <button
