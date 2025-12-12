@@ -1,8 +1,9 @@
 class Group {
-  constructor(name, members = [], email = null) {
+  constructor(name, members = [], email = null, isPickAtLeastOnePerGroup = false) {
     this.name = name;
     this.members = members;
     this.email = email;
+    this.isPickAtLeastOnePerGroup = isPickAtLeastOnePerGroup;
   }
 
   getGroupName() {
@@ -23,6 +24,14 @@ class Group {
 
   setEmail(email) {
     this.email = email;
+  }
+
+  getPickAtLeastOnePerGroup() {
+    return this.isPickAtLeastOnePerGroup;
+  }
+
+  setPickAtLeastOnePerGroup(value) {
+    this.isPickAtLeastOnePerGroup = value;
   }
 }
 

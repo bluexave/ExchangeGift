@@ -14,9 +14,9 @@ class GroupFactory {
   }
 
   static createSingleGroup(groupData) {
-    const { name, members, email } = groupData;
+    const { name, members, email, isPickAtLeastOnePerGroup } = groupData;
     const memberObjects = members.map(memberName => new Member(memberName));
-    const group = new Group(name, memberObjects, email);
+    const group = new Group(name, memberObjects, email, isPickAtLeastOnePerGroup || false);
     return group;
   }
 }

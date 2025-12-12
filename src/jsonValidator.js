@@ -23,7 +23,7 @@ class JsonValidator {
 
   static validateStructure(groupsJson) {
     for (const groupData of groupsJson) {
-      const { name, members } = groupData;
+      const { name, members, isPickAtLeastOnePerGroup } = groupData;
 
       if (!name || typeof name !== 'string') {
         throw new Error('Group must have a name (string)');
@@ -41,6 +41,11 @@ class JsonValidator {
         if (typeof member !== 'string') {
           throw new Error(`All members in group "${name}" must be strings`);
         }
+      }
+
+      // Validate isPickAtLeastOnePerGroup if provided
+      if (isPickAtLeastOnePerGroup !== undefined && typeof isPickAtLeastOnePerGroup !== 'boolean') {
+        throw new Error(`Group "${name}" isPickAtLeastOnePerGroup must be a boolean`);
       }
     }
   }
