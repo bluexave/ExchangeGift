@@ -50,6 +50,11 @@ export const Card = ({
     >
       <div className="card-header">
         <h3 className="card-title">{group.name || '(Unnamed)'}</h3>
+        {!isActive && (
+          <div className="card-preview">
+            <span className="member-count-inactive">{memberCount} members</span>
+          </div>
+        )}
         {isActive && (
           <button
             type="button"
@@ -66,11 +71,7 @@ export const Card = ({
         )}
       </div>
 
-      {!isActive ? (
-        <div className="card-preview">
-          <p className="preview-hint">Click to edit</p>
-        </div>
-      ) : (
+      {isActive ? (
         <div className="card-edit">
           <Group 
             group={group}
@@ -114,7 +115,7 @@ export const Card = ({
             </div>
           )}
         </div>
-      )}
+      ) : null}
     </div>
   );
 };

@@ -1,56 +1,11 @@
 .workline {
   position: relative;
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-.workline.inactive {
-  min-height: 80px;
-}
-
-.workline-summary {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1.5rem 2rem;
-  border: 2px solid #e5e7eb;
-  border-radius: 8px;
-  background: #f9fafb;
-  transition: all 0.3s ease;
-  height: 80px;
-}
-
-.workline.inactive:hover .workline-summary {
-  background: #f3f4f6;
-  border-color: #d1d5db;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.summary-content {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  font-size: 1.1rem;
-  color: #374151;
-  font-weight: 600;
-}
-
-.summary-groups {
-  color: #3b82f6;
-}
-
-.summary-members {
-  color: #8b5cf6;
-}
-
-.summary-separator {
-  color: #d1d5db;
 }
 
 .workline-cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 @media (max-width: 1024px) {
@@ -62,9 +17,5 @@
 @media (max-width: 768px) {
   .workline-cards {
     grid-template-columns: 1fr;
-  }
-
-  .summary-content {
-    font-size: 1rem;
   }
 }

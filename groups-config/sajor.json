@@ -4,11 +4,11 @@
     "members": [
       {
         "name": "pau",
-        "index": 43
+        "index": 35
       },
       {
         "name": "xave",
-        "index": 35
+        "index": 43
       },
       {
         "name": "belle",
@@ -54,7 +54,7 @@
       },
       {
         "name": "mommy tina",
-        "index": 1
+        "index": 8
       },
       {
         "name": "daddy ding",
@@ -62,11 +62,11 @@
       },
       {
         "name": "alex",
-        "index": 5
+        "index": 2
       },
       {
         "name": "marco",
-        "index": 7
+        "index": 1
       },
       {
         "name": "yaya mommytina",
@@ -74,15 +74,15 @@
       },
       {
         "name": "yaya marco",
-        "index": 2
-      },
-      {
-        "name": "manang farm",
         "index": 6
       },
       {
+        "name": "manang farm",
+        "index": 5
+      },
+      {
         "name": "boy farm",
-        "index": 8
+        "index": 7
       }
     ],
     "email": "paulaelopre@yahoo.com",
@@ -93,7 +93,7 @@
     "members": [
       {
         "name": "cheche",
-        "index": 47
+        "index": 45
       },
       {
         "name": "raunchie",
@@ -101,15 +101,15 @@
       },
       {
         "name": "aan",
-        "index": 45
-      },
-      {
-        "name": "lexie",
         "index": 29
       },
       {
-        "name": "wanna",
+        "name": "lexie",
         "index": 37
+      },
+      {
+        "name": "wanna",
+        "index": 47
       }
     ],
     "email": "paulaelopre@yahoo.com",
@@ -120,15 +120,15 @@
     "members": [
       {
         "name": "cleng",
-        "index": 38
+        "index": 22
       },
       {
         "name": "kat",
-        "index": 30
+        "index": 38
       },
       {
         "name": "simon",
-        "index": 22
+        "index": 30
       }
     ],
     "email": "paulaelopre@yahoo.com",
@@ -139,39 +139,39 @@
     "members": [
       {
         "name": "val",
-        "index": 16
-      },
-      {
-        "name": "apol",
-        "index": 17
-      },
-      {
-        "name": "ivan",
-        "index": 18
-      },
-      {
-        "name": "ana",
-        "index": 13
-      },
-      {
-        "name": "ara",
-        "index": 10
-      },
-      {
-        "name": "juaki",
         "index": 15
       },
       {
-        "name": "sam",
-        "index": 14
-      },
-      {
-        "name": "mateo",
+        "name": "apol",
         "index": 11
       },
       {
-        "name": "aaron",
+        "name": "ivan",
+        "index": 17
+      },
+      {
+        "name": "ana",
+        "index": 16
+      },
+      {
+        "name": "ara",
+        "index": 14
+      },
+      {
+        "name": "juaki",
         "index": 12
+      },
+      {
+        "name": "sam",
+        "index": 13
+      },
+      {
+        "name": "mateo",
+        "index": 10
+      },
+      {
+        "name": "aaron",
+        "index": 18
       }
     ],
     "email": "paulaelopre@yahoo.com",
@@ -182,11 +182,11 @@
     "members": [
       {
         "name": "carol",
-        "index": 31
+        "index": 23
       },
       {
         "name": "aldrin",
-        "index": 23
+        "index": 31
       },
       {
         "name": "paul",
@@ -197,7 +197,7 @@
     "isPickAtLeastOnePerGroup": false
   },
   {
-    "name": "JA",
+    "name": "Ja",
     "members": [
       {
         "name": "ja",
@@ -220,19 +220,19 @@
     "members": [
       {
         "name": "mikel",
-        "index": 33
-      },
-      {
-        "name": "sarah",
         "index": 46
       },
       {
+        "name": "sarah",
+        "index": 41
+      },
+      {
         "name": "primo",
-        "index": 25
+        "index": 33
       },
       {
         "name": "yaya primo",
-        "index": 41
+        "index": 25
       }
     ],
     "email": "paulaelopre@yahoo.com",
@@ -243,11 +243,11 @@
     "members": [
       {
         "name": "budil",
-        "index": 26
+        "index": 34
       },
       {
         "name": "doc francis",
-        "index": 34
+        "index": 26
       },
       {
         "name": "gio",

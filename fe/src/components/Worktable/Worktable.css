@@ -17,4 +17,43 @@
   flex-direction: column;
   gap: 1.5rem;
   margin-bottom: 2rem;
+  max-height: 70vh;
+  overflow-y: auto;
+  padding: 1.5rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  background: white;
 }
+
+/* Scrollbar styling */
+.worklines-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.worklines-container::-webkit-scrollbar-track {
+  background: #f3f4f6;
+  border-radius: 8px;
+}
+
+.worklines-container::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.worklines-container::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* Firefox scrollbar */
+.worklines-container {
+  scrollbar-color: #d1d5db #f3f4f6;
+  scrollbar-width: thin;
+}
+
+@media (max-width: 768px) {
+  .worklines-container {
+    max-height: 60vh;
+  }
+}
+

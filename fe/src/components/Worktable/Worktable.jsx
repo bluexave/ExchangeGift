@@ -13,34 +13,33 @@ export const Worktable = ({
   onRemove,
   onActiveWorklineChange
 }) => {
-  const [activeWorkline, setActiveWorkline] = useState(null);
-  const [activeCard, setActiveCard] = useState(null);
+  const [activeCards, setActiveCards] = useState(new Set());
   const worktableRef = useRef(null);
 
-  const handleClick = (lineIdx, e) => {
-    e.stopPropagation();
-    setActiveWorkline(lineIdx);
-    setActiveCard(null);
-    onActiveWorklineChange?.(lineIdx);
-  };
-
   const handleCardClick = (cardIdx) => {
-    setActiveCard(activeCard === cardIdx ? null : cardIdx);
+    setActiveCards(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(cardIdx)) {
+        newSet.delete(cardIdx);
+      } else {
+        newSet.add(cardIdx);
+      }
+      return newSet;
+    });
   };
 
   const handleClickOutside = (e) => {
     if (worktableRef.current && !worktableRef.current.contains(e.target)) {
-      setActiveWorkline(null);
-      onActiveWorklineChange?.(null);
+      setActiveCards(new Set());
     }
   };
 
   useEffect(() => {
-    if (activeWorkline !== null) {
+    if (activeCards.size > 0) {
       document.addEventListener('click', handleClickOutside);
       return () => document.removeEventListener('click', handleClickOutside);
     }
-  }, [activeWorkline]);
+  }, [activeCards]);
 
   // Organize groups into worklines of 3 cards each
   const worklines = [];
@@ -61,10 +60,8 @@ export const Worktable = ({
               key={lineIdx}
               workline={workline}
               startIdx={lineIdx * 3}
-              isActive={activeWorkline === lineIdx}
-              activeCard={activeCard}
+              activeCards={activeCards}
               onCardClick={handleCardClick}
-              onClick={(e) => handleClick(lineIdx, e)}
               onNameChange={onNameChange}
               onEmailChange={onEmailChange}
               onMemberAdd={onMemberAdd}

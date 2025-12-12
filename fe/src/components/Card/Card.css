@@ -1,13 +1,23 @@
 .card {
   background: white;
-  padding: 1.5rem;
+  padding: 1rem 1.5rem;
   border-radius: 8px;
   border: 2px solid #e5e7eb;
   transition: all 0.3s ease;
-  min-height: 150px;
   display: flex;
   flex-direction: column;
   cursor: pointer;
+}
+
+.card.inactive {
+  min-height: auto;
+  padding: 0.5rem 1.5rem;
+  justify-content: center;
+}
+
+.card.active {
+  min-height: 150px;
+  padding: 1.5rem;
 }
 
 .card.inactive:hover {
@@ -24,7 +34,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
   margin-bottom: 0.75rem;
+}
+
+.card.inactive .card-header {
+  margin-bottom: 0;
 }
 
 .card-title {
@@ -34,6 +49,13 @@
   font-weight: 700;
   word-break: break-word;
   flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card.inactive .card-title {
+  font-size: 0.95rem;
 }
 
 .btn-card-remove {
@@ -66,17 +88,31 @@
 }
 
 .card-preview {
+  display: none;
+}
+
+.card.inactive .card-preview {
   display: flex;
   align-items: center;
-  justify-content: center;
-  flex: 1;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  flex: 0;
+  margin-left: auto;
 }
 
 .preview-hint {
   margin: 0;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: #9ca3af;
-  font-style: italic;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.member-count-inactive {
+  font-size: 0.8rem;
+  color: #6b7280;
+  font-weight: 500;
+  white-space: nowrap;
 }
 
 .card-edit {
