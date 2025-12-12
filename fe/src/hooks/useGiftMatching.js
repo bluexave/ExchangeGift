@@ -6,25 +6,25 @@ export const useGiftMatching = () => {
   const [error, setError] = useState(null);
   const [results, setResults] = useState(null);
   const [attempts, setAttempts] = useState(0);
-  const [families, setFamilies] = useState(null);
+  const [groups, setGroups] = useState(null);
 
-  const performMatching = useCallback(async (familiesData, sendEmails = false) => {
+  const performMatching = useCallback(async (groupsData, sendEmails = false) => {
     setLoading(true);
     setError(null);
     setAttempts(0);
 
     try {
-      const data = await matchFamilies(familiesData, sendEmails);
+      const data = await matchFamilies(groupsData, sendEmails);
       
       if (data.success) {
         setResults(data.matches);
-        setFamilies(familiesData);
+        setGroups(groupsData);
         setAttempts(data.attempt || 1);
       } else {
         setError(data.error || 'Unknown error occurred');
       }
     } catch (err) {
-      const errorMessage = err.error || err.message || 'Failed to match families';
+      const errorMessage = err.error || err.message || 'Failed to match groups';
       setError(errorMessage);
     } finally {
       setLoading(false);
@@ -33,7 +33,7 @@ export const useGiftMatching = () => {
 
   const clearResults = useCallback(() => {
     setResults(null);
-    setFamilies(null);
+    setGroups(null);
     setError(null);
     setAttempts(0);
   }, []);
@@ -43,7 +43,7 @@ export const useGiftMatching = () => {
     error,
     results,
     attempts,
-    families,
+    groups,
     performMatching,
     clearResults,
   };

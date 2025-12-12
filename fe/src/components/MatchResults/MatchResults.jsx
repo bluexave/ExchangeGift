@@ -1,12 +1,12 @@
 import './MatchResults.css';
 
-export const MatchResults = ({ results, families, attempts, onReset }) => {
+export const MatchResults = ({ results, groups, attempts, onReset }) => {
   if (!results || results.length === 0) {
     return null;
   }
 
-  const totalMembers = families?.reduce((sum, family) => {
-    return sum + family.members.filter(m => m.trim()).length;
+  const totalMembers = groups?.reduce((sum, group) => {
+    return sum + group.members.filter(m => m.trim()).length;
   }, 0) || 0;
 
   return (
@@ -23,13 +23,13 @@ export const MatchResults = ({ results, families, attempts, onReset }) => {
         <div className="details-header">
           <h3>Email Notifications Sent</h3>
         </div>
-        <div className="families-list">
-          {families?.map((family, idx) => {
-            const memberCount = family.members.filter(m => m.trim()).length;
+        <div className="groups-list">
+          {groups?.map((group, idx) => {
+            const memberCount = group.members.filter(m => m.trim()).length;
             return (
-              <div key={idx} className="family-notification">
-                <div className="family-name">{family.name}</div>
-                <div className="family-email">📧 {family.email}</div>
+              <div key={idx} className="group-notification">
+                <div className="group-name">{group.name}</div>
+                <div className="group-email">📧 {group.email}</div>
                 <div className="member-count">
                   {memberCount} member{memberCount !== 1 ? 's' : ''} matched
                 </div>
@@ -41,8 +41,8 @@ export const MatchResults = ({ results, families, attempts, onReset }) => {
 
       <div className="summary-stats">
         <div className="stat">
-          <span className="stat-label">Total Families:</span>
-          <span className="stat-value">{families?.length || 0}</span>
+          <span className="stat-label">Total Groups:</span>
+          <span className="stat-value">{groups?.length || 0}</span>
         </div>
         <div className="stat">
           <span className="stat-label">Total Members Matched:</span>

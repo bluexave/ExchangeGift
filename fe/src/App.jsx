@@ -1,13 +1,13 @@
 import { useEffect } from 'react'
 import { Toaster, toast } from 'react-hot-toast'
-import { FamilyForm } from './components/FamilyForm/FamilyForm'
+import { GroupForm } from './components/GroupForm/GroupForm'
 import { MatchResults } from './components/MatchResults/MatchResults'
 import { useGiftMatching } from './hooks/useGiftMatching'
 import { checkHealth } from './services/api'
 import './App.css'
 
 function App() {
-  const { loading, error, results, attempts, families, performMatching, clearResults } = useGiftMatching()
+  const { loading, error, results, attempts, groups, performMatching, clearResults } = useGiftMatching()
 
   useEffect(() => {
     checkHealth()
@@ -25,9 +25,9 @@ function App() {
     }
   }, [error])
 
-  const handleFormSubmit = async (families, sendEmails) => {
+  const handleFormSubmit = async (groups, sendEmails) => {
     toast.loading('Creating matches...')
-    await performMatching(families, sendEmails)
+    await performMatching(groups, sendEmails)
     toast.dismiss()
     if (results && results.length > 0) {
       toast.success(`Successfully matched ${results.length} members!`)
@@ -52,9 +52,9 @@ function App() {
 
       <main className="app-main">
         {!results ? (
-          <FamilyForm onSubmit={handleFormSubmit} loading={loading} />
+          <GroupForm onSubmit={handleFormSubmit} loading={loading} />
         ) : (
-          <MatchResults results={results} families={families} attempts={attempts} onReset={handleReset} />
+          <MatchResults results={results} groups={groups} attempts={attempts} onReset={handleReset} />
         )}
       </main>
 
