@@ -1,29 +1,29 @@
 const JsonValidator = require('./jsonValidator');
-const FamilyFactory = require('./familyFactory');
+const GroupFactory = require('./groupFactory');
 const IndexAssigner = require('./indexAssigner');
 const BabyAssigner = require('./babyAssigner');
 const EmailSender = require('./emailSender');
 
 class MatchingOrchestrator {
-  static async orchestrate(familiesJson, sendEmails = false) {
+  static async orchestrate(groupsJson, sendEmails = false) {
     // Stage 1: Validate JSON
-    JsonValidator.validate(familiesJson);
+    JsonValidator.validate(groupsJson);
 
-    // Stage 2: Create Family objects
-    const families = FamilyFactory.createFromJson(familiesJson);
+    // Stage 2: Create Group objects
+    const groups = GroupFactory.createFromJson(groupsJson);
 
     // Stage 3: Assign sequential indices
-    const highestIndex = IndexAssigner.assign(families);
+    const highestIndex = IndexAssigner.assign(groups);
 
     // Stage 4: Assign babies
-    BabyAssigner.assign(families, highestIndex);
+    BabyAssigner.assign(groups, highestIndex);
 
     // Stage 5: Send emails (optional)
     if (sendEmails) {
-      await EmailSender.sendAssignments(families);
+      await EmailSender.sendAssignments(groups);
     }
 
-    return families;
+    return groups;
   }
 }
 

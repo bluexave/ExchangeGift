@@ -27,15 +27,15 @@ class EmailSender {
     };
   }
 
-  static async sendAssignments(families) {
+  static async sendAssignments(groups) {
     if (!this.transporter) {
       this.initialize();
     }
 
     const results = [];
 
-    for (const family of families) {
-      const email = family.getEmail();
+    for (const group of groups) {
+      const email = group.getEmail();
       
       // Skip if no email provided
       if (!email) {
@@ -51,7 +51,7 @@ class EmailSender {
 
       try {
         // Build email content
-        const members = family.getMembers();
+        const members = group.getMembers();
         const assignmentLines = members
           .map(member => {
             const babyIndex = member.getBaby();

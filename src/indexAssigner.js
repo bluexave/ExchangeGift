@@ -1,10 +1,10 @@
 class IndexAssigner {
-  static assign(families) {
+  static assign(groups) {
     let memberIndex = 1;
     let highestIndex = 0;
 
-    for (const family of families) {
-      const members = family.getMembers();
+    for (const group of groups) {
+      const members = group.getMembers();
 
       for (const member of members) {
         member.setIndex(memberIndex);

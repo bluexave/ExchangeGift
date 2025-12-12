@@ -3,19 +3,19 @@ const Randomizer = require('./randomizer');
 class BabyAssigner {
   static MAX_RETRIES = 3;
 
-  static assign(families, highestIndex) {
+  static assign(groups, highestIndex) {
     for (let attempt = 0; attempt < this.MAX_RETRIES; attempt++) {
       try {
         console.log(`\n[BabyAssigner] Attempt ${attempt + 1}/${this.MAX_RETRIES}`);
-        this.assignBabiesOnce(families, highestIndex, Date.now() + attempt);
+        this.assignBabiesOnce(groups, highestIndex, Date.now() + attempt);
         console.log(`[BabyAssigner] ✓ Success on attempt ${attempt + 1}`);
         return; // Success
       } catch (error) {
         console.log(`[BabyAssigner] ✗ Attempt ${attempt + 1} failed: ${error.message}`);
         
         // Reset babies for next attempt
-        for (const family of families) {
-          for (const member of family.getMembers()) {
+        for (const group of groups) {
+          for (const member of group.getMembers()) {
             member.setBaby(null);
           }
         }
@@ -28,25 +28,25 @@ class BabyAssigner {
     }
   }
 
-  static assignBabiesOnce(families, highestIndex, seed) {
+  static assignBabiesOnce(groups, highestIndex, seed) {
     const assignedBabies = new Set();
     const babyNames = {}; // Track names by index for logging
     let currentSeed = seed;
 
-    // Nested loop: for each family, for each member
-    for (const family of families) {
-      const members = family.getMembers();
-      const familyMemberIndices = family.getMemberIndices();
+    // Nested loop: for each group, for each member
+    for (const group of groups) {
+      const members = group.getMembers();
+      const groupMemberIndices = group.getMemberIndices();
 
       for (const member of members) {
-        // Build exclusion set: family member indices + already assigned babies
-        const exclusions = new Set([...familyMemberIndices, ...Array.from(assignedBabies)]);
+        // Build exclusion set: group member indices + already assigned babies
+        const exclusions = new Set([...groupMemberIndices, ...Array.from(assignedBabies)]);
         const availableSlots = highestIndex - exclusions.size;
 
         console.log(`  ${member.getName()}: range=[1-${highestIndex}], exclusions=[${Array.from(exclusions).sort((a,b)=>a-b).join(',')}], available=${availableSlots}`);
 
         try {
-          // Get random baby index, excluding self family and already assigned
+          // Get random baby index, excluding self group and already assigned
           const babyIndex = Randomizer.randomInRange(1, highestIndex, currentSeed, Array.from(exclusions));
           member.setBaby(babyIndex);
           assignedBabies.add(babyIndex);
@@ -61,30 +61,30 @@ class BabyAssigner {
     }
 
     // Now resolve names for logging
-    for (const family of families) {
-      for (const member of family.getMembers()) {
+    for (const group of groups) {
+      for (const member of group.getMembers()) {
         babyNames[member.getIndex()] = member.getName();
       }
     }
 
     // Show final summary with names
     console.log('\n[BabyAssigner] Assignment Summary:');
-    for (const family of families) {
-      for (const member of family.getMembers()) {
+    for (const group of groups) {
+      for (const member of group.getMembers()) {
         const babyIndex = member.getBaby();
         const babyName = babyNames[babyIndex];
         console.log(`  ${member.getName()} (${member.getIndex()}) → ${babyName} (${babyIndex})`);
       }
     }
 
-    this.validate(families);
+    this.validate(groups);
   }
 
-  static validate(families) {
+  static validate(groups) {
     const babyIndices = new Set();
 
-    for (const family of families) {
-      const members = family.getMembers();
+    for (const group of groups) {
+      const members = group.getMembers();
 
       for (const member of members) {
         const baby = member.getBaby();

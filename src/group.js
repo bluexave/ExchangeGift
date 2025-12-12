@@ -1,11 +1,11 @@
-class Family {
+class Group {
   constructor(name, members = [], email = null) {
     this.name = name;
     this.members = members;
     this.email = email;
   }
 
-  getFamilyName() {
+  getGroupName() {
     return this.name;
   }
 
@@ -26,4 +26,4 @@ class Family {
   }
 }
 
-module.exports = Family;
+module.exports = Group;

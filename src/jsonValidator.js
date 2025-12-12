@@ -1,61 +1,61 @@
 class JsonValidator {
-  static MIN_FAMILIES = 3;
+  static MIN_GROUPS = 3;
   static MIN_MEMBERS_TOTAL = 10;
-  static MIN_MEMBERS_PER_FAMILY = 3;
+  static MIN_MEMBERS_PER_GROUP = 3;
 
-  static validate(familiesJson) {
-    if (!Array.isArray(familiesJson)) {
-      throw new Error('Families must be an array');
+  static validate(groupsJson) {
+    if (!Array.isArray(groupsJson)) {
+      throw new Error('Groups must be an array');
     }
 
-    if (familiesJson.length === 0) {
-      throw new Error(`At least ${this.MIN_FAMILIES} families are required`);
+    if (groupsJson.length === 0) {
+      throw new Error(`At least ${this.MIN_GROUPS} groups are required`);
     }
 
-    if (familiesJson.length < this.MIN_FAMILIES) {
-      throw new Error(`At least ${this.MIN_FAMILIES} families are required for gift exchange`);
+    if (groupsJson.length < this.MIN_GROUPS) {
+      throw new Error(`At least ${this.MIN_GROUPS} groups are required for gift exchange`);
     }
 
-    this.validateStructure(familiesJson);
-    this.validateUniqueness(familiesJson);
-    this.validateMinimums(familiesJson);
+    this.validateStructure(groupsJson);
+    this.validateUniqueness(groupsJson);
+    this.validateMinimums(groupsJson);
   }
 
-  static validateStructure(familiesJson) {
-    for (const familyData of familiesJson) {
-      const { name, members } = familyData;
+  static validateStructure(groupsJson) {
+    for (const groupData of groupsJson) {
+      const { name, members } = groupData;
 
       if (!name || typeof name !== 'string') {
-        throw new Error('Family must have a name (string)');
+        throw new Error('Group must have a name (string)');
       }
 
       if (!Array.isArray(members) || members.length === 0) {
-        throw new Error(`Family "${name}" must have at least one member`);
+        throw new Error(`Group "${name}" must have at least one member`);
       }
 
-      if (members.length < this.MIN_MEMBERS_PER_FAMILY) {
-        throw new Error(`Family "${name}" must have at least ${this.MIN_MEMBERS_PER_FAMILY} members`);
+      if (members.length < this.MIN_MEMBERS_PER_GROUP) {
+        throw new Error(`Group "${name}" must have at least ${this.MIN_MEMBERS_PER_GROUP} members`);
       }
 
       for (const member of members) {
         if (typeof member !== 'string') {
-          throw new Error(`All members in family "${name}" must be strings`);
+          throw new Error(`All members in group "${name}" must be strings`);
         }
       }
     }
   }
 
-  static validateUniqueness(familiesJson) {
-    const familyNames = new Set();
+  static validateUniqueness(groupsJson) {
+    const groupNames = new Set();
     const allMemberNames = new Set();
 
-    for (const familyData of familiesJson) {
-      const { name, members } = familyData;
+    for (const groupData of groupsJson) {
+      const { name, members } = groupData;
 
-      if (familyNames.has(name)) {
-        throw new Error(`Duplicate family name: ${name}`);
+      if (groupNames.has(name)) {
+        throw new Error(`Duplicate group name: ${name}`);
       }
-      familyNames.add(name);
+      groupNames.add(name);
 
       for (const memberName of members) {
         if (allMemberNames.has(memberName)) {
@@ -66,11 +66,11 @@ class JsonValidator {
     }
   }
 
-  static validateMinimums(familiesJson) {
+  static validateMinimums(groupsJson) {
     let totalMembers = 0;
 
-    for (const familyData of familiesJson) {
-      totalMembers += familyData.members.length;
+    for (const groupData of groupsJson) {
+      totalMembers += groupData.members.length;
     }
 
     if (totalMembers < this.MIN_MEMBERS_TOTAL) {

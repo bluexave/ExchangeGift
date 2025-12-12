@@ -11,15 +11,15 @@ app.use(express.json());
 // Routes
 app.post('/api/match', async (req, res) => {
   try {
-    const { families, sendEmails = false } = req.body;
+    const { groups, sendEmails = false } = req.body;
 
-    // Validate and build families from JSON
-    const builtFamilies = await MatchingOrchestrator.orchestrate(families, sendEmails);
+    // Validate and build groups from JSON
+    const builtGroups = await MatchingOrchestrator.orchestrate(groups, sendEmails);
 
-    // Flatten families to array of members with name and baby
+    // Flatten groups to array of members with name and baby
     const matches = [];
-    for (const family of builtFamilies) {
-      for (const member of family.getMembers()) {
+    for (const group of builtGroups) {
+      for (const member of group.getMembers()) {
         matches.push({
           name: member.getName(),
           baby: member.getBaby()
