@@ -18,6 +18,8 @@ function App() {
   const [loadingFiles, setLoadingFiles] = useState(false)
   const [activeWorklineIdx, setActiveWorklineIdx] = useState(null)
   const [currentFilename, setCurrentFilename] = useState(null)
+  const [mode, setMode] = useState('test') // 'test' or 'final'
+  const [testResults, setTestResults] = useState(null) // Store test mode results
 
   const getMemberCount = (group) => {
     return group.members.filter(m => {
@@ -195,10 +197,19 @@ function App() {
         })
       }));
       
-      const result = await draftMembers(groupsForApi, true)
+      const sendEmails = mode === 'final'; // true for final mode, false for test mode
+      const result = await draftMembers(groupsForApi, sendEmails)
       
       toast.dismiss()
-      toast.success(result.message || 'Matches created successfully!')
+      
+      if (mode === 'test') {
+        // Test mode: show member-baby assignments
+        setTestResults(result.members || [])
+        toast.success('Test mode: View assignments below')
+      } else {
+        // Final mode: just show confirmation
+        toast.success(result.message || 'Matches created and emails sent successfully!')
+      }
     } catch (error) {
       toast.dismiss()
       toast.error(error.error || 'Failed to create matches')
@@ -216,8 +227,7 @@ function App() {
       
       <header className="app-header">
         <div className="header-content">
-          <h1>🎁 Gift Exchange Matcher</h1>
-          <p>Match gift exchange partners across families</p>
+          <h1>🎁 Santa - Baby </h1>
         </div>
       </header>
 
@@ -234,6 +244,8 @@ function App() {
               onPickOrderDraft={handlePickOrderDraft}
               onSantaBabyDraft={handleSantaBabyDraft}
               loading={loading}
+              mode={mode}
+              onModeChange={setMode}
             />
 
             <Worktable 
@@ -272,6 +284,29 @@ function App() {
                 setGroups(groups.filter((_, i) => i !== idx));
               }}
             />
+
+            {testResults && (
+              <div className="test-results-container">
+                <div className="test-results">
+                  <h3>Test Mode - Member Assignments</h3>
+                  <div className="assignments-list">
+                    {testResults.map((assignment, idx) => (
+                      <div key={idx} className="assignment-item">
+                        <span className="giver"><strong>Santa:</strong> {assignment.giver}</span>
+                        <span className="arrow">→</span>
+                        <span className="receiver-baby"><strong>Baby:</strong> {assignment.receiver}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <button 
+                    onClick={() => setTestResults(null)}
+                    className="btn-clear-results"
+                  >
+                    Clear Results
+                  </button>
+                </div>
+              </div>
+            )}
 
           </>
         ) : (

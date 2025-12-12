@@ -50,10 +50,38 @@ app.post('/api/match', async (req, res) => {
     // Validate and build groups from JSON
     const builtGroups = await MatchingOrchestrator.orchestrate(groupsForMatching, sendEmails);
 
-    res.json({
+    // Build response based on sendEmails flag
+    const response = {
       success: true,
       message: `Successfully matched ${builtGroups.reduce((sum, g) => sum + g.getMembers().length, 0)} members!`
-    });
+    };
+
+    // If not sending emails (test mode), include member assignments
+    if (!sendEmails) {
+      const members = [];
+      for (const group of builtGroups) {
+        for (const member of group.getMembers()) {
+          const babyIndex = member.getBaby();
+          // Find baby name
+          let babyName = `Member ${babyIndex}`;
+          for (const g of builtGroups) {
+            for (const m of g.getMembers()) {
+              if (m.getIndex() === babyIndex) {
+                babyName = m.getName();
+                break;
+              }
+            }
+          }
+          members.push({
+            giver: member.getName(),
+            receiver: babyName
+          });
+        }
+      }
+      response.members = members;
+    }
+
+    res.json(response);
   } catch (error) {
     res.status(400).json({
       error: error.message

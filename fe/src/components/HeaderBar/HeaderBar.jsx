@@ -9,12 +9,38 @@ export const HeaderBar = ({
   onLoad,
   onPickOrderDraft,
   onSantaBabyDraft,
-  loading 
+  loading,
+  mode = 'test',
+  onModeChange
 }) => {
   return (
     <div className="header-bar">
       <div className="header-bar-top">
         <h2 className="header-title">Setup Groups</h2>
+        <div className="mode-selector">
+          <label className="radio-label">
+            <input
+              type="radio"
+              name="mode"
+              value="test"
+              checked={mode === 'test'}
+              onChange={(e) => onModeChange?.(e.target.value)}
+              disabled={loading}
+            />
+            <span>Test Mode</span>
+          </label>
+          <label className="radio-label">
+            <input
+              type="radio"
+              name="mode"
+              value="final"
+              checked={mode === 'final'}
+              onChange={(e) => onModeChange?.(e.target.value)}
+              disabled={loading}
+            />
+            <span>Final Mode</span>
+          </label>
+        </div>
       </div>
       
       <div className="header-controls">
