@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { matchFamilies } from '../services/api';
+import { draftMembers } from '../services/api';
 
 export const useGiftMatching = () => {
   const [loading, setLoading] = useState(false);
@@ -14,7 +14,7 @@ export const useGiftMatching = () => {
     setAttempts(0);
 
     try {
-      const data = await matchFamilies(groupsData, sendEmails);
+      const data = await draftMembers(groupsData, sendEmails);
       
       if (data.success) {
         setResults(data.matches);

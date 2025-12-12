@@ -20,7 +20,7 @@ src/
   ├── matchingOrchestrator.js # Orchestrator (5-stage pipeline)
   ├── jsonValidator.js      # Input validation
   ├── familyFactory.js      # Create Family/Member objects
-  ├── indexAssigner.js      # Assign sequential indices
+  ├── pickOrderDrafter.js   # Draft pick order for gift selection
   ├── babyAssigner.js       # Random gift assignment with retries
   ├── emailSender.js        # Email notification system
   ├── familyRepository.js   # Query utility functions
@@ -147,7 +147,7 @@ Returns server status:
 
 1. **JsonValidator** - Validates input meets requirements
 2. **FamilyFactory** - Converts JSON to Family/Member objects
-3. **IndexAssigner** - Assigns sequential indices (1, 2, 3, ...)
+3. **PickOrderDrafter** - Assigns sequential indices (1, 2, 3, ...) to draft pick order
 4. **BabyAssigner** - Randomly assigns gifts (3 retries if needed)
 5. **EmailSender** - Sends assignment notifications (optional)
 

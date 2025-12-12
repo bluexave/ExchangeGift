@@ -5,9 +5,14 @@ export const MatchResults = ({ results, groups, attempts, onReset }) => {
     return null;
   }
 
-  const totalMembers = groups?.reduce((sum, group) => {
-    return sum + group.members.filter(m => m.trim()).length;
-  }, 0) || 0;
+  const getMemberCount = (group) => {
+    return group.members.filter(m => {
+      const name = typeof m === 'string' ? m : m.name || '';
+      return name.trim();
+    }).length;
+  };
+
+  const totalMembers = groups?.reduce((sum, group) => sum + getMemberCount(group), 0) || 0;
 
   return (
     <div className="match-results">
@@ -25,7 +30,10 @@ export const MatchResults = ({ results, groups, attempts, onReset }) => {
         </div>
         <div className="groups-list">
           {groups?.map((group, idx) => {
-            const memberCount = group.members.filter(m => m.trim()).length;
+            const memberCount = group.members.filter(m => {
+              const name = typeof m === 'string' ? m : m.name || '';
+              return name.trim();
+            }).length;
             return (
               <div key={idx} className="group-notification">
                 <div className="group-name">{group.name}</div>

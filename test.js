@@ -1,6 +1,6 @@
 const JsonValidator = require('./src/jsonValidator');
 const GroupFactory = require('./src/groupFactory');
-const IndexAssigner = require('./src/indexAssigner');
+const PickOrderDrafter = require('./src/pickOrderDrafter');
 const BabyAssigner = require('./src/babyAssigner');
 const GroupRepository = require('./src/groupRepository');
 const MatchingOrchestrator = require('./src/matchingOrchestrator');
@@ -168,11 +168,11 @@ test('should preserve member order', () => {
   assert(members[1].getName() === 'Fiona', 'Second member of third Group should be "Fiona"');
 });
 
-console.log('\n=== IndexAssigner Tests ===\n');
+console.log('\n=== PickOrderDrafter Tests ===\n');
 
 test('should assign sequential indices starting from 1', () => {
   const groups = GroupFactory.createFromJson(validFamilies);
-  const highestIndex = IndexAssigner.assign(groups);
+  const highestIndex = PickOrderDrafter.assign(groups);
   
   let members = groups[0].getMembers();
   assert(members[0].getIndex() === 1, 'First member should have index 1');
@@ -185,13 +185,13 @@ test('should assign sequential indices starting from 1', () => {
 
 test('should return highest index', () => {
   const groups = GroupFactory.createFromJson(validFamilies);
-  const highestIndex = IndexAssigner.assign(groups);
+  const highestIndex = PickOrderDrafter.assign(groups);
   assert(highestIndex === 12, 'Highest index should be 12 for 12 members');
 });
 
 test('should handle equal member groups', () => {
   const groups = GroupFactory.createFromJson(validFamilies);
-  const highestIndex = IndexAssigner.assign(groups);
+  const highestIndex = PickOrderDrafter.assign(groups);
   
   assert(groups[0].getMembers()[0].getIndex() === 1, 'First member should be 1');
   assert(groups[1].getMembers()[0].getIndex() === 5, 'Fifth member should be 5');
@@ -203,7 +203,7 @@ console.log('\n=== BabyAssigner Tests ===\n');
 
 test('should assign babies to all members', () => {
   const groups = GroupFactory.createFromJson(validFamilies);
-  IndexAssigner.assign(groups);
+  PickOrderDrafter.assign(groups);
   BabyAssigner.assign(groups, 12);
   
   for (const Group of groups) {
@@ -216,7 +216,7 @@ test('should assign babies to all members', () => {
 
 test('should not assign baby from own group', () => {
   const groups = GroupFactory.createFromJson(validFamilies);
-  IndexAssigner.assign(groups);
+  PickOrderDrafter.assign(groups);
   BabyAssigner.assign(groups, 12);
   
   // Group A members have indices 1, 2, 3, 4
@@ -232,7 +232,7 @@ test('should not assign baby from own group', () => {
 
 test('should not have duplicate baby assignments', () => {
   const groups = GroupFactory.createFromJson(validFamilies);
-  IndexAssigner.assign(groups);
+  PickOrderDrafter.assign(groups);
   BabyAssigner.assign(groups, 12);
   
   const babyIndices = new Set();

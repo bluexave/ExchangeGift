@@ -15,7 +15,15 @@ class GroupFactory {
 
   static createSingleGroup(groupData) {
     const { name, members, email, isPickAtLeastOnePerGroup } = groupData;
-    const memberObjects = members.map(memberName => new Member(memberName));
+    // Members are objects with name and index properties
+    const memberObjects = members.map(member => {
+      const memberObj = new Member(member.name);
+      // If member has an index (not null), set it
+      if (member.index !== null && member.index !== undefined) {
+        memberObj.setIndex(member.index);
+      }
+      return memberObj;
+    });
     const group = new Group(name, memberObjects, email, isPickAtLeastOnePerGroup || false);
     return group;
   }

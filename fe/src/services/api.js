@@ -9,15 +9,51 @@ const apiClient = axios.create({
   },
 });
 
-export const matchFamilies = async (families, sendEmails = false) => {
+export const draftPickOrder = async (groups) => {
+  try {
+    const response = await apiClient.post('/api/draft-pick-order', { groups });
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || { error: 'Failed to draft pick order' };
+  }
+};
+
+export const draftMembers = async (groups, sendEmails = false) => {
   try {
     const response = await apiClient.post('/api/match', {
-      families,
+      groups,
       sendEmails,
     });
     return response.data;
   } catch (error) {
-    throw error.response?.data || { error: 'Failed to match families' };
+    throw error.response?.data || { error: 'Failed to draft members' };
+  }
+};
+
+export const saveGroups = async (groups, filename) => {
+  try {
+    const response = await apiClient.post('/api/groups/save', { groups, filename });
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || { error: 'Failed to save groups' };
+  }
+};
+
+export const loadGroups = async (filename) => {
+  try {
+    const response = await apiClient.get(`/api/groups/load/${filename}`);
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || { error: 'Failed to load groups' };
+  }
+};
+
+export const listGroupFiles = async () => {
+  try {
+    const response = await apiClient.get('/api/groups/list');
+    return response.data.files || [];
+  } catch (error) {
+    throw error.response?.data || { error: 'Failed to list group files' };
   }
 };
 

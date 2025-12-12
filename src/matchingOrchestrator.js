@@ -1,21 +1,20 @@
-const JsonValidator = require('./jsonValidator');
-const GroupFactory = require('./groupFactory');
-const IndexAssigner = require('./indexAssigner');
+const BaseOrchestrator = require('./baseOrchestrator');
 const BabyAssigner = require('./babyAssigner');
 const EmailSender = require('./emailSender');
 
-class MatchingOrchestrator {
+class MatchingOrchestrator extends BaseOrchestrator {
   static async orchestrate(groupsJson, sendEmails = false) {
     // Stage 1: Validate JSON
-    JsonValidator.validate(groupsJson);
+    this.validateJson(groupsJson);
 
     // Stage 2: Create Group objects
-    const groups = GroupFactory.createFromJson(groupsJson);
+    const groups = this.createGroups(groupsJson);
 
-    // Stage 3: Assign sequential indices
-    const highestIndex = IndexAssigner.assign(groups);
+    // Stage 3: Validate all members have indices (must run PickOrderDraft first)
+    this.validateAllMembersIndexed(groups);
 
     // Stage 4: Assign babies
+    const highestIndex = Math.max(...groups.flatMap(g => g.getMembers().map(m => m.getIndex() || 0)));
     BabyAssigner.assign(groups, highestIndex);
 
     // Stage 5: Send emails (optional)

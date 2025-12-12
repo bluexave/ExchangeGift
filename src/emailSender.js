@@ -39,9 +39,9 @@ class EmailSender {
       
       // Skip if no email provided
       if (!email) {
-        console.log(`[EmailSender] ⊘ No email for family "${family.getFamilyName()}", skipping`);
+        console.log(`[EmailSender] ⊘ No email for group "${group.getGroupName()}", skipping`);
         results.push({
-          family: family.getFamilyName(),
+          group: group.getGroupName(),
           email: email,
           status: 'skipped',
           reason: 'No email provided'
@@ -57,8 +57,8 @@ class EmailSender {
             const babyIndex = member.getBaby();
             // Find the recipient member by index
             let recipientName = `Member ${babyIndex}`;
-            for (const f of families) {
-              for (const m of f.getMembers()) {
+            for (const g of groups) {
+              for (const m of g.getMembers()) {
                 if (m.getIndex() === babyIndex) {
                   recipientName = m.getName();
                   break;
@@ -72,11 +72,11 @@ class EmailSender {
         const mailOptions = {
           from: 'sajorgiftexchange@noreply.com',
           to: email,
-          subject: `Gift Exchange Assignments - ${family.getFamilyName()}`,
-          text: `Hello ${family.getFamilyName()} family,\n\nHere are your gift exchange assignments:\n\n${assignmentLines}\n\nHappy gifting!\n\nGift Exchange Team`,
+          subject: `Gift Exchange Assignments - ${group.getGroupName()}`,
+          text: `Hello ${group.getGroupName()} group,\n\nHere are your gift exchange assignments:\n\n${assignmentLines}\n\nHappy gifting!\n\nGift Exchange Team`,
           html: `
             <h2>Gift Exchange Assignments</h2>
-            <p>Hello ${family.getFamilyName()} family,</p>
+            <p>Hello ${group.getGroupName()} group,</p>
             <p>Here are your gift exchange assignments:</p>
             <pre>${assignmentLines}</pre>
             <p>Happy gifting!<br>Gift Exchange Team</p>
@@ -85,17 +85,17 @@ class EmailSender {
 
         const result = await this.transporter.sendMail(mailOptions);
         
-        console.log(`[EmailSender] ✓ Email sent to ${email} for family "${family.getFamilyName()}"`);
+        console.log(`[EmailSender] ✓ Email sent to ${email} for group "${group.getGroupName()}"`);
         results.push({
-          family: family.getFamilyName(),
+          group: group.getGroupName(),
           email: email,
           status: 'sent',
           messageId: result.messageId
         });
       } catch (error) {
-        console.error(`[EmailSender] ✗ Failed to send email to ${email} for family "${family.getFamilyName()}": ${error.message}`);
+        console.error(`[EmailSender] ✗ Failed to send email to ${email} for group "${group.getGroupName()}": ${error.message}`);
         results.push({
-          family: family.getFamilyName(),
+          group: group.getGroupName(),
           email: email,
           status: 'failed',
           error: error.message

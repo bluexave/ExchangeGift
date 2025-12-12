@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Pau",
+    "members": [
+      "pau",
+      "xave",
+      "belle",
+      "ilysse"
+    ],
+    "email": "paulaelopre@yahoo.com",
+    "isPickAtLeastOnePerGroup": false
+  },
+  {
+    "name": "Jc",
+    "members": [
+      "jc",
+      "krizza",
+      "king",
+      "zion"
+    ],
+    "email": "paulaelopre@yahoo.com",
+    "isPickAtLeastOnePerGroup": false
+  },
+  {
+    "name": "Joana",
+    "members": [
+      "joana",
+      "mommy-tina",
+      "daddy-ding",
+      "alex",
+      "kulotz",
+      "manang",
+      "yaya-kulotz"
+    ],
+    "email": "paulaelopre@yahoo.com",
+    "isPickAtLeastOnePerGroup": true
+  },
+  {
+    "name": "Cheche",
+    "members": [
+      "cheche",
+      "raunchie",
+      "aan",
+      "lexie",
+      "wanna"
+    ],
+    "email": "paulaelopre@yahoo.com",
+    "isPickAtLeastOnePerGroup": false
+  }
+]

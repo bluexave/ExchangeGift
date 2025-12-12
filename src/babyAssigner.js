@@ -1,4 +1,5 @@
-const Randomizer = require('./randomizer');
+const FirstDraftAssigner = require('./firstDraftAssigner');
+const SecondDraftAssigner = require('./secondDraftAssigner');
 
 class BabyAssigner {
   static MAX_RETRIES = 3;
@@ -7,7 +8,7 @@ class BabyAssigner {
     for (let attempt = 0; attempt < this.MAX_RETRIES; attempt++) {
       try {
         console.log(`\n[BabyAssigner] Attempt ${attempt + 1}/${this.MAX_RETRIES}`);
-        this.assignBabiesOnce(groups, highestIndex, Date.now() + attempt);
+        this.assignBabiesInTwoStages(groups, highestIndex, Date.now() + attempt);
         console.log(`[BabyAssigner] ✓ Success on attempt ${attempt + 1}`);
         return; // Success
       } catch (error) {
@@ -28,47 +29,22 @@ class BabyAssigner {
     }
   }
 
-  static assignBabiesOnce(groups, highestIndex, seed) {
-    const assignedBabies = new Set();
-    const babyNames = {}; // Track names by index for logging
-    let currentSeed = seed;
+  static assignBabiesInTwoStages(groups, highestIndex, seed) {
+    // Stage 1: First draft assignment
+    const { assignedBabies, currentSeed } = FirstDraftAssigner.assign(groups, highestIndex);
 
-    // Nested loop: for each group, for each member
-    for (const group of groups) {
-      const members = group.getMembers();
-      const groupMemberIndices = group.getMemberIndices();
+    // Stage 2: Second draft assignment for remaining members
+    SecondDraftAssigner.assign(groups, highestIndex, assignedBabies, currentSeed);
 
-      for (const member of members) {
-        // Build exclusion set: group member indices + already assigned babies
-        const exclusions = new Set([...groupMemberIndices, ...Array.from(assignedBabies)]);
-        const availableSlots = highestIndex - exclusions.size;
-
-        console.log(`  ${member.getName()}: range=[1-${highestIndex}], exclusions=[${Array.from(exclusions).sort((a,b)=>a-b).join(',')}], available=${availableSlots}`);
-
-        try {
-          // Get random baby index, excluding self group and already assigned
-          const babyIndex = Randomizer.randomInRange(1, highestIndex, currentSeed, Array.from(exclusions));
-          member.setBaby(babyIndex);
-          assignedBabies.add(babyIndex);
-          babyNames[babyIndex] = '?'; // Placeholder, will update after all indices assigned
-          console.log(`    → Assigned baby index: ${babyIndex}`);
-          currentSeed++;
-        } catch (error) {
-          console.log(`    → ERROR: ${error.message}`);
-          throw error;
-        }
-      }
-    }
-
-    // Now resolve names for logging
+    // Show final summary with names
+    const babyNames = {};
     for (const group of groups) {
       for (const member of group.getMembers()) {
         babyNames[member.getIndex()] = member.getName();
       }
     }
 
-    // Show final summary with names
-    console.log('\n[BabyAssigner] Assignment Summary:');
+    console.log('\n[BabyAssigner] Final Assignment Summary:');
     for (const group of groups) {
       for (const member of group.getMembers()) {
         const babyIndex = member.getBaby();

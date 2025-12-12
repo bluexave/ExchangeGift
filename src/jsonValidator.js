@@ -38,8 +38,16 @@ class JsonValidator {
       }
 
       for (const member of members) {
-        if (typeof member !== 'string') {
-          throw new Error(`All members in group "${name}" must be strings`);
+        // Members should be objects with name and index properties
+        if (typeof member !== 'object' || member === null) {
+          throw new Error(`All members in group "${name}" must be objects with name and index properties`);
+        }
+        if (typeof member.name !== 'string') {
+          throw new Error(`All members in group "${name}" must have a valid name property (string)`);
+        }
+        // Index can be null, number, or undefined
+        if (member.index !== null && member.index !== undefined && typeof member.index !== 'number') {
+          throw new Error(`Member index in group "${name}" must be a number or null`);
         }
       }
 
@@ -62,7 +70,9 @@ class JsonValidator {
       }
       groupNames.add(name);
 
-      for (const memberName of members) {
+      for (const member of members) {
+        // Extract name from object member
+        const memberName = member.name;
         if (allMemberNames.has(memberName)) {
           throw new Error(`Duplicate member name: ${memberName}`);
         }
