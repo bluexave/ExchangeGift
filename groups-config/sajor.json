@@ -2,10 +2,22 @@
   {
     "name": "Pau",
     "members": [
-      "pau",
-      "xave",
-      "belle",
-      "ilysse"
+      {
+        "name": "pau",
+        "index": 19
+      },
+      {
+        "name": "xave",
+        "index": 43
+      },
+      {
+        "name": "belle",
+        "index": 35
+      },
+      {
+        "name": "ilysse",
+        "index": 27
+      }
     ],
     "email": "paulaelopre@yahoo.com",
     "isPickAtLeastOnePerGroup": false
@@ -13,10 +25,22 @@
   {
     "name": "Jc",
     "members": [
-      "jc",
-      "krizza",
-      "king",
-      "zion"
+      {
+        "name": "jc",
+        "index": 36
+      },
+      {
+        "name": "krizza",
+        "index": 28
+      },
+      {
+        "name": "king",
+        "index": 20
+      },
+      {
+        "name": "zion",
+        "index": 44
+      }
     ],
     "email": "paulaelopre@yahoo.com",
     "isPickAtLeastOnePerGroup": false
@@ -24,13 +48,42 @@
   {
     "name": "Joana",
     "members": [
-      "joana",
-      "mommy-tina",
-      "daddy-ding",
-      "alex",
-      "kulotz",
-      "manang",
-      "yaya-kulotz"
+      {
+        "name": "joana",
+        "index": 8
+      },
+      {
+        "name": "mommy tina",
+        "index": 3
+      },
+      {
+        "name": "daddy ding",
+        "index": 6
+      },
+      {
+        "name": "alex",
+        "index": 2
+      },
+      {
+        "name": "marco",
+        "index": 1
+      },
+      {
+        "name": "yaya mommytina",
+        "index": 5
+      },
+      {
+        "name": "yaya marco",
+        "index": 4
+      },
+      {
+        "name": "manang farm",
+        "index": 7
+      },
+      {
+        "name": "boy farm",
+        "index": 9
+      }
     ],
     "email": "paulaelopre@yahoo.com",
     "isPickAtLeastOnePerGroup": true
@@ -38,11 +91,168 @@
   {
     "name": "Cheche",
     "members": [
-      "cheche",
-      "raunchie",
-      "aan",
-      "lexie",
-      "wanna"
+      {
+        "name": "cheche",
+        "index": 45
+      },
+      {
+        "name": "raunchie",
+        "index": 47
+      },
+      {
+        "name": "aan",
+        "index": 29
+      },
+      {
+        "name": "lexie",
+        "index": 37
+      },
+      {
+        "name": "wanna",
+        "index": 21
+      }
+    ],
+    "email": "paulaelopre@yahoo.com",
+    "isPickAtLeastOnePerGroup": false
+  },
+  {
+    "name": "Cleng",
+    "members": [
+      {
+        "name": "cleng",
+        "index": 38
+      },
+      {
+        "name": "kat",
+        "index": 30
+      },
+      {
+        "name": "simon",
+        "index": 22
+      }
+    ],
+    "email": "paulaelopre@yahoo.com",
+    "isPickAtLeastOnePerGroup": false
+  },
+  {
+    "name": "Tito Val",
+    "members": [
+      {
+        "name": "val",
+        "index": 16
+      },
+      {
+        "name": "apol",
+        "index": 15
+      },
+      {
+        "name": "ivan",
+        "index": 13
+      },
+      {
+        "name": "ana",
+        "index": 11
+      },
+      {
+        "name": "ara",
+        "index": 10
+      },
+      {
+        "name": "juaki",
+        "index": 18
+      },
+      {
+        "name": "sam",
+        "index": 17
+      },
+      {
+        "name": "mateo",
+        "index": 12
+      },
+      {
+        "name": "aaron",
+        "index": 14
+      }
+    ],
+    "email": "paulaelopre@yahoo.com",
+    "isPickAtLeastOnePerGroup": true
+  },
+  {
+    "name": "Carol",
+    "members": [
+      {
+        "name": "carol",
+        "index": 31
+      },
+      {
+        "name": "aldrin",
+        "index": 39
+      },
+      {
+        "name": "paul",
+        "index": 23
+      }
+    ],
+    "email": "paulaelopre@yahoo.com",
+    "isPickAtLeastOnePerGroup": false
+  },
+  {
+    "name": "JA",
+    "members": [
+      {
+        "name": "ja",
+        "index": 32
+      },
+      {
+        "name": "jessica",
+        "index": 40
+      },
+      {
+        "name": "samara",
+        "index": 24
+      }
+    ],
+    "email": "paulaelopre@yahoo.com",
+    "isPickAtLeastOnePerGroup": false
+  },
+  {
+    "name": "Michael",
+    "members": [
+      {
+        "name": "mikel",
+        "index": 33
+      },
+      {
+        "name": "sarah",
+        "index": 41
+      },
+      {
+        "name": "primo",
+        "index": 25
+      },
+      {
+        "name": "yaya primo",
+        "index": 46
+      }
+    ],
+    "email": "paulaelopre@yahoo.com",
+    "isPickAtLeastOnePerGroup": false
+  },
+  {
+    "name": "Budil",
+    "members": [
+      {
+        "name": "budil",
+        "index": 42
+      },
+      {
+        "name": "doc francis",
+        "index": 34
+      },
+      {
+        "name": "gio",
+        "index": 26
+      }
     ],
     "email": "paulaelopre@yahoo.com",
     "isPickAtLeastOnePerGroup": false

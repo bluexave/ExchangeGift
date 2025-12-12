@@ -28,15 +28,16 @@ class SecondDraftAssigner {
         if (unassignedMembers.length > 0) {
           allAssigned = false;
 
-          // Pick random unassigned member from this group
-          const randomIdx = Math.floor(Math.random() * unassignedMembers.length);
-          const member = unassignedMembers[randomIdx];
+          // Pick member with lowest index (draft order) from this group
+          const member = unassignedMembers.reduce((prev, curr) => 
+            (curr.getIndex() < prev.getIndex()) ? curr : prev
+          );
 
           // Build exclusion set: group member indices + already assigned babies
           const exclusions = new Set([...groupMemberIndices, ...Array.from(assignedBabies)]);
           const availableSlots = highestIndex - exclusions.size;
 
-          console.log(`    ${member.getName()}: range=[1-${highestIndex}], exclusions=[${Array.from(exclusions).sort((a,b)=>a-b).join(',')}], available=${availableSlots}`);
+          console.log(`    ${member.getName()} [Index ${member.getIndex()}]: range=[1-${highestIndex}], exclusions=[${Array.from(exclusions).sort((a,b)=>a-b).join(',')}], available=${availableSlots}`);
 
           try {
             const babyIndex = Randomizer.randomInRange(1, highestIndex, seed, Array.from(exclusions));

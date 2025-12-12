@@ -4,6 +4,11 @@ const fs = require('fs');
 const path = require('path');
 const MatchingOrchestrator = require('./matchingOrchestrator');
 const PickOrderOrchestrator = require('./pickOrderOrchestrator');
+const EmailSender = require('./emailSender');
+
+// Load environment variables
+require('dotenv').config({ path: path.join(__dirname, '../.env') });
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 const GROUPS_DIR = path.join(__dirname, '../groups-config');
@@ -16,6 +21,17 @@ if (!fs.existsSync(GROUPS_DIR)) {
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// Initialize email sender with Gmail SMTP
+const smtpConfig = {
+  service: 'gmail',
+  auth: {
+    user: process.env.GMAIL_USER || 'santababy@gmail.com',
+    pass: process.env.GMAIL_PASSWORD || ''
+  }
+};
+EmailSender.initialize(smtpConfig);
+console.log(`[EmailSender] Initialized with Gmail account: ${process.env.GMAIL_USER}`);
 
 // Routes
 app.post('/api/match', async (req, res) => {

@@ -3,55 +3,53 @@ const Randomizer = require('./randomizer');
 /**
  * First stage: Assign babies for the first draft round
  * - Only pick groups participate
+ * - Each pick group picks 1 random member from each other group
  * - Number of picks = number of pick groups * (total groups - 1)
- * - Each pick group picks 1 member per round from other groups
- * - Rounds continue for (total groups - 1) times
  */
 class FirstDraftAssigner {
   static assign(groups, highestIndex) {
+    const pickGroups = groups.filter(g => g.getPickAtLeastOnePerGroup());
     const assignedBabies = new Set();
     let currentSeed = Date.now();
 
-    // Separate pick and non-pick groups
-    const pickGroups = groups.filter(g => g.getPickAtLeastOnePerGroup());
-    const totalGroups = groups.length;
-    const roundsInFirstDraft = totalGroups - 1;
-    const picksInFirstDraft = pickGroups.length * roundsInFirstDraft;
+    console.log(`\n[FirstDraftAssigner] First draft starting`);
+    console.log(`  Pick groups: ${pickGroups.length}`);
 
-    console.log(`\n[FirstDraftAssigner] First draft picks: ${pickGroups.length} pick groups × ${roundsInFirstDraft} rounds = ${picksInFirstDraft} picks`);
+    // For each pick group
+    for (const pickGroup of pickGroups) {
+      console.log(`  ${pickGroup.getGroupName()}:`);
 
-    // For each round
-    for (let round = 0; round < roundsInFirstDraft; round++) {
-      console.log(`  Round ${round + 1}:`);
+      // Get all other groups (including other pick groups)
+      const otherGroups = groups.filter(g => g !== pickGroup);
+      console.log(`    Other groups to pick from: ${otherGroups.length}`);
 
-      // For each pick group, pick one member
-      for (const pickGroup of pickGroups) {
-        const members = pickGroup.getMembers();
-        const groupMemberIndices = pickGroup.getMemberIndices();
+      // Get members from this pick group sorted by index
+      const pickGroupMembers = pickGroup.getMembers().sort((a, b) => a.getIndex() - b.getIndex());
 
-        // Get unassigned members from this pick group
-        const unassignedMembers = members.filter(m => m.getBaby() === null || m.getBaby() === undefined);
+      // Track current member index within this pick group
+      let memberIndex = 0;
 
-        if (unassignedMembers.length > 0) {
-          // Pick random unassigned member from this pick group
-          const randomIdx = Math.floor(Math.random() * unassignedMembers.length);
-          const member = unassignedMembers[randomIdx];
+      // For each other group
+      for (const otherGroup of otherGroups) {
+        if (memberIndex >= pickGroupMembers.length) break;
 
-          // Build exclusion set: group member indices + already assigned babies
-          const exclusions = new Set([...groupMemberIndices, ...Array.from(assignedBabies)]);
-          const availableSlots = highestIndex - exclusions.size;
+        // Get unassigned members from this other group
+        const unassignedFromOther = otherGroup.getMembers().filter(m => m.getBaby() === null || m.getBaby() === undefined);
 
-          console.log(`    ${member.getName()} (${pickGroup.getGroupName()}): range=[1-${highestIndex}], exclusions=[${Array.from(exclusions).sort((a,b)=>a-b).join(',')}], available=${availableSlots}`);
+        if (unassignedFromOther.length > 0) {
+          // Select member from pick group by current index
+          const selectedMember = pickGroupMembers[memberIndex];
 
-          try {
-            const babyIndex = Randomizer.randomInRange(1, highestIndex, currentSeed, Array.from(exclusions));
-            member.setBaby(babyIndex);
-            assignedBabies.add(babyIndex);
-            console.log(`      → Assigned baby index: ${babyIndex}`);
-            currentSeed++;
-          } catch (error) {
-            throw new Error(`[FirstDraftAssigner] Failed to assign baby to ${member.getName()}: ${error.message}`);
-          }
+          // Pick random unassigned member from other group
+          const randomIdx = Math.floor(Math.random() * unassignedFromOther.length);
+          const randomMember = unassignedFromOther[randomIdx];
+          const babyIndex = randomMember.getIndex();
+
+          console.log(`    ${selectedMember.getName()} [Index ${selectedMember.getIndex()}] → ${otherGroup.getGroupName()}: ${randomMember.getName()} (Index ${babyIndex})`);
+
+          selectedMember.setBaby(babyIndex);
+          assignedBabies.add(babyIndex);
+          memberIndex++;
         }
       }
     }
