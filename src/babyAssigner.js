@@ -2,7 +2,7 @@ const FirstDraftAssigner = require('./firstDraftAssigner');
 const SecondDraftAssigner = require('./secondDraftAssigner');
 
 class BabyAssigner {
-  static MAX_RETRIES = 3;
+  static MAX_RETRIES = 10;
 
   static assign(groups, highestIndex) {
     for (let attempt = 0; attempt < this.MAX_RETRIES; attempt++) {

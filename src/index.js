@@ -26,12 +26,12 @@ app.use(express.json());
 const smtpConfig = {
   service: 'gmail',
   auth: {
-    user: process.env.GMAIL_USER || 'santababy@gmail.com',
+    user: process.env.GMAIL_EMAIL || 'santababy@gmail.com',
     pass: process.env.GMAIL_PASSWORD || ''
   }
 };
 EmailSender.initialize(smtpConfig);
-console.log(`[EmailSender] Initialized with Gmail account: ${process.env.GMAIL_USER}`);
+console.log(`[EmailSender] Initialized with Gmail account: ${process.env.GMAIL_EMAIL}`);
 
 // Routes
 app.post('/api/match', async (req, res) => {

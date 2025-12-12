@@ -70,16 +70,16 @@ class EmailSender {
           .join('\n');
 
         const mailOptions = {
-          from: 'sajorgiftexchange@noreply.com',
+          from: process.env.GMAIL_EMAIL || 'santababy@gmail.com',
           to: email,
-          subject: `Gift Exchange Assignments - ${group.getGroupName()}`,
-          text: `Hello ${group.getGroupName()} group,\n\nHere are your gift exchange assignments:\n\n${assignmentLines}\n\nHappy gifting!\n\nGift Exchange Team`,
+          subject: `Sajor Santa Baby 2025 - ${group.getGroupName()}`,
+          text: `Hello ${group.getGroupName()} group,\n\nHere are your babies:\n\n${assignmentLines}\n\nHappy gifting!\n\nGift Exchange Team`,
           html: `
-            <h2>Gift Exchange Assignments</h2>
+            <h2>Sajor Santa Baby 2025</h2>
             <p>Hello ${group.getGroupName()} group,</p>
-            <p>Here are your gift exchange assignments:</p>
+            <p>Here are your babies:</p>
             <pre>${assignmentLines}</pre>
-            <p>Happy gifting!<br>Gift Exchange Team</p>
+            <p>Happy gifting!<br>Sajor Santa Baby Team</p>
           `
         };
 
